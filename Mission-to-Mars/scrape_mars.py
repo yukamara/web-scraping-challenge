@@ -39,6 +39,7 @@ def scrape():
         
         # Scrape the article date
         news_date = result.find('div', class_='list_date').text
+
         # Scrape the article title
         news_title = result.find('div', class_='content_title').text
         
@@ -161,8 +162,15 @@ def scrape():
         
         image_urls.append(image_dict)
 
-    pprint.pprint(image_urls)
-
+    # Dictionary of all scraped information
+    mars_dict = {
+        "news_title": news_title,
+        "news_p": news_p,
+        "featured_image_url": featured_image_url,
+        "hemisphere_info": hemisphere_info
+    }
+    
+    # close browser
     browser.quit()
 
     return mars_dict

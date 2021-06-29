@@ -16,7 +16,6 @@ def scrape():
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
 
-    mars_dict = {}
 
     # URL of page to be scraped
     url = 'https://redplanetscience.com/'
@@ -35,7 +34,6 @@ def scrape():
         
         # Scrape the article date
         news_date = result.find('div', class_='list_date').text
-
         # Scrape the article title
         news_title = result.find('div', class_='content_title').text
         
@@ -54,12 +52,11 @@ def scrape():
             'news_p': news_p,
             'news_date': news_date,
         }
-        
+
     # 2. Scraping the Featured Image - Splinter
     # URL of page to be scraped
     url= 'https://spaceimages-mars.com/'
     browser.visit(url)
-
 
     # html Object
     html = browser.html
@@ -71,33 +68,29 @@ def scrape():
     image_url = soup.find_all('img')[1]['src']
     featured_image_url = url + image_url
 
-    # Print image url
-    print(f'featured_image_url = {featured_image_url}')
 
-
-    # 3. Scraping Mars Facts - Pandas
+    # 3. Scraping Mars Facts - Pandas*
     # Mars Facts web page url 
     url = 'https://galaxyfacts-mars.com/'
-
 
     # List all table on page
     tables = pd.read_html(url)
 
-
     # Slice off table of interest
     df = tables[0]
 
-
-    #make the first row the table header
+    # Make the first row the table header
 
     #grab the first row for the header
     new_header = df.iloc[0]
+
     #take the data less the header row
     df = df[0:] 
+
     #set the header row as the df header
     df.columns = new_header
 
-    # Drop first row
+    # Drop the row with index = 0
     df = df.iloc[1:]
 
     # Rename first column and set it as the index
@@ -110,6 +103,7 @@ def scrape():
     # Clean up unwanted new lines
     mars_facts.replace('\n', '')
 
+
     # 4. Scraping Mars Hemisphers
     # URL of page to be scraped
     mars_url = 'https://marshemispheres.com/'
@@ -117,6 +111,7 @@ def scrape():
 
     # html Object
     html = browser.html
+
     # Parse with Beautiful Soup
     mars_soup = bs(html, 'html.parser')
 
@@ -150,20 +145,15 @@ def scrape():
         
         image_urls.append(image_dict)
 
-    # Dictionary of all scraped information
+        # Dictionary of all scraped information
     mars_dict = {
         "news_title": news_title,
         "news_p": news_p,
         "featured_image_url": featured_image_url,
-        "mars_facts": mars_facts, # this needs to be checked
+        "mars_facts": mars_facts,
         "hemisphere_info": image_urls
     }
-    
-    # close browser
-    browser.quit()
-    print("test-------------------------------------------------------------")
-    print(mars_dict)
 
     return mars_dict
 
-#scrape()
+    browser.quit()

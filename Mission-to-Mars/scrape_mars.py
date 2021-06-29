@@ -86,12 +86,10 @@ def scrape():
 
     # List all table on page
     tables = pd.read_html(url)
-    tables
 
 
     # Slice off table of interest
     df = tables[0]
-    df
 
 
     #make the first row the table header
@@ -102,20 +100,16 @@ def scrape():
     df = df[0:] 
     #set the header row as the df header
     df.columns = new_header
-    df
 
     # Drop first row
     df = df.iloc[1:]
-    df
 
     # Rename first column and set it as the index
     df = df.rename(columns={"Mars - Earth Comparison": "Description"})
     df = df.set_index('Description')
-    df
 
     #Convert table to html
     mars_facts = df.to_html()
-    mars_facts
 
     # Clean up unwanted new lines
     mars_facts.replace('\n', '')
@@ -167,15 +161,15 @@ def scrape():
         "news_title": news_title,
         "news_p": news_p,
         "featured_image_url": featured_image_url,
-        "hemisphere_info": hemisphere_info
+        "mars_facts": mars_facts, # this needs to be checked
+        "hemisphere_info": hemisphere_info # this also needs to be checked
     }
     
     # close browser
     browser.quit()
+    print("test-------------------------------------------------------------")
+    print(mars_dict)
 
     return mars_dict
 
-
-
-
-
+#scrape()

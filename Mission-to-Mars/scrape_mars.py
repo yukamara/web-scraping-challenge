@@ -18,10 +18,6 @@ def scrape():
 
     mars_dict = {}
 
-    # Initialize PyMongo to work with MongoDBs
-    conn = 'mongodb://localhost:27017'
-    client = pymongo.MongoClient(conn)
-
     # URL of page to be scraped
     url = 'https://redplanetscience.com/'
     browser.visit(url)
@@ -114,8 +110,6 @@ def scrape():
     # Clean up unwanted new lines
     mars_facts.replace('\n', '')
 
-    print(mars_facts)
-
     # 4. Scraping Mars Hemisphers
     # URL of page to be scraped
     mars_url = 'https://marshemispheres.com/'
@@ -162,7 +156,7 @@ def scrape():
         "news_p": news_p,
         "featured_image_url": featured_image_url,
         "mars_facts": mars_facts, # this needs to be checked
-        "hemisphere_info": hemisphere_info # this also needs to be checked
+        "hemisphere_info": image_urls
     }
     
     # close browser

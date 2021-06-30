@@ -10,7 +10,7 @@
             rel="stylesheet"
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous">
-        <link rel="stylesheet" href="styles.css">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='styles/styles.css') }}">
 
     </head>
 
@@ -30,7 +30,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <h3> {{mars.news_title}} </h3><br>
+                    <h5> {{mars.news_title}} </h5>
                     <p> {{mars.news_p}} </p>
                 </div>
             </div>
@@ -60,13 +60,11 @@
                 </div>
                 {% endfor %}
             </div>
-            <hr>
             <br>
             <hr>
             <footer class="footer">
-                <span class="bottom">2021 Data: Mission to Mars</span>
+                <span class="bottom">&#169; 2021 Data: Mission to Mars</span>
             </footer>
-            <hr>
         </div>
 
 
